@@ -27,6 +27,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from '../reducers/StateReducer';
 import RoleSelector from './RoleSelector';
+import Routing from './Routing';
 
 
 const store=createStore(reducers, 
@@ -37,7 +38,7 @@ class App extends Component{
   {
     return(
       <Provider store={store}>
-        <RoleSelector/>
+        <Routing/>
       </Provider>
     );
   }
