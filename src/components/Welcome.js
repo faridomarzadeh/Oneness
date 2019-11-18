@@ -4,37 +4,41 @@ import {
   Text,
   View,
   StatusBar,
-  TouchableHighlight
+  TouchableOpacity,
+  Dimensions
 } from 'react-native';
 
 export default class Welcome extends Component {
-    next=()=>{
-        this.props.navigation.navigate('RoleSelect');
+  next = () => {
+    this.props.navigation.navigate('RoleSelect');
+  }
+  static navigationOptions = {
+    title: 'Oneness',
+    headerStyle: {
+      backgroundColor: '#ebebeb'
     }
-    static navigationOptions = {
-        title: 'Oneness',
-        headerStyle: {
-          backgroundColor: '#4F6D7A',
-          alignItems:'center'
-        }
-    }
+  }
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor="#4F6D7A"
-        />
-        <Text style={styles.welcome}>
-          Welcome to Oneness!
+        <View style={styles.welcomeContainer}>
+          <StatusBar
+            barStyle="light-content"
+            backgroundColor="#ebebeb"
+          />
+          <Text style={styles.welcome}>
+            Welcome to Oneness!
         </Text>
-        <Text style={styles.instructions}>
-         An application for capturing Multicaltural situations.
-         To continue, please press Next!
+          <Text style={styles.instructions}>
+            An application for capturing Multicaltural situations.
+            To continue, please press Next!
         </Text>
-        <TouchableHighlight onPress={this.next.bind(this)} style={styles.welcome}>
-            <Text>Next</Text>
-        </TouchableHighlight>
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={this.next.bind(this)} style={styles.button}>
+            <Text style={styles.buttonText}>Next</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -45,17 +49,36 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#4F6D7A',
+    backgroundColor: '#ebebeb',
+  },
+  welcomeContainer: {
+    flex: 6,
+    justifyContent: "center"
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-    color: '#F5FCFF',
+    color: 'black',
   },
   instructions: {
     textAlign: 'center',
-    color: '#F5FCFF',
+    color: 'black',
     marginBottom: 5,
   },
+  button: {
+    alignSelf: 'stretch',
+    width: Dimensions.get('window').width,
+    height: 50,
+    backgroundColor: '#78D2F7'
+  },
+  buttonText: {
+    fontSize: 20,
+    textAlign: "center",
+    paddingTop: 10
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'flex-end'
+  }
 });

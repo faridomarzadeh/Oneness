@@ -4,18 +4,19 @@ import {
     Text,
     View,
     TouchableOpacity,
-    Dimensions
+    Dimensions,
+    TextInput
   } from 'react-native';
 import { connect } from 'react-redux'
 import * as actions from '../actions/index';
 
 
-class RoleSelector extends Component {
+class PeopleInvoloved extends Component {
     constructor(props)
     {
         super(props);
         this.state={
-
+            numberofPeople:null
         }
     }
 
@@ -25,28 +26,35 @@ class RoleSelector extends Component {
           backgroundColor: '#ebebeb'
         }
     }
-
-    onSelectRole=(role)=>{
-      this.props.setRole(role);
-      this.props.navigation.navigate('DemographicInformation');
+    onChnage(text)
+    {
+        if(text)
+        {
+            this.setState({numberofPeople:text})
+        }
+    }
+    onSubmitNumberOfPeople() {
+        if(this.state.numberofPeople)
+        {
+            this.props.setNumberOfPeopleInvolved(this.state.numberofPeople)
+            this.props.navigation.navigate('Involved');
+        }
+        else{
+            this.setState({numberofPeople:null})
+        }
     }
     render() {
         return (
             <View style={styles.container}>
         <View style={styles.welcomeContainer}>
           <Text style={styles.welcome}>
-            Please Indicate your role in the multicultural event that took place.
+            Please Specify How many people were Involved
         </Text>
+        <TextInput onChangeText={text=>this.onChnage(text)} value={this.state.numberofPeople} keyboardType='numeric' style={{ width:200,height: 40, borderColor: 'black', borderWidth: 2, alignSelf:"center"}}/>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity  style={styles.button} onPress={()=>this.onSelectRole('user')}>
-            <Text style={styles.buttonText}>User</Text>
-          </TouchableOpacity>
-          <TouchableOpacity  style={[styles.button,styles.buttonGreen]} onPress={()=>this.onSelectRole('observer')} >
-            <Text style={styles.buttonText}>Observer</Text>
-          </TouchableOpacity>
-          <TouchableOpacity  style={[styles.button,styles.buttonYellow]} >
-            <Text style={styles.buttonText}>Admin</Text>
+          <TouchableOpacity  style={styles.button} onPress={this.onSubmitNumberOfPeople.bind(this)} >
+            <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -91,11 +99,11 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
       flex: 1,
-      justifyContent: 'flex-start'
+      justifyContent: 'flex-end'
     }
   });
 
 const mapStateToProps = state => {
     return { information: state }
 }
-export default connect(mapStateToProps, actions)(RoleSelector);
+export default connect(mapStateToProps, actions)(PeopleInvoloved);
